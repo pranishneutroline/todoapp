@@ -19,12 +19,12 @@ export default function Input() {
     todos[index].complete = !complete;
     settoDoList(todos);
   }
-  const deleteItems=()=>{
+  const deleteItems=(index)=>{
     console.log("deleted here");
     settoDoList((oldItems)=>{
-      return oldItems.filter((arrElem, index) => {
-        return 
-        // on process
+      return oldItems.filter((arrElem, id) => {
+        return  id !== index; 
+        // on process 
       })
     })
 
