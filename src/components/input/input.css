@@ -1,0 +1,30 @@
+.input-container {
+    display: absolute;
+
+}
+
+form {
+    display: flex;
+    justify-content: center;
+
+}
+
+.input-bar {
+    height: 50px;
+    width: 300px;
+    border-radius: 20px;
+}
+
+.btn {
+    height: 50px;
+    width: 100px;
+    cursor: pointer;
+    background: blue;
+    color: white;
+    border-radius: 20px;
+}
+
+.filter-todo {
+    height: 50px;
+    margin-left: 2rem;
+}
