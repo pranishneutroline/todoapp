@@ -19,6 +19,17 @@ export default function Input() {
     todos[index].complete = !complete;
     settoDoList(todos);
   }
+  const deleteItems=()=>{
+    console.log("deleted here");
+    settoDoList((oldItems)=>{
+      return oldItems.filter((arrElem, index) => {
+        return 
+        // on process
+      })
+    })
+
+  }
+
 
   return (
     <div className="input-container">
@@ -52,6 +63,7 @@ export default function Input() {
             index={index}
             complete={val.complete}
             completeToDo={completeToDo}
+            onSelect ={deleteItems}
           />
         ))}
       </ul>
