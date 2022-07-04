@@ -2,34 +2,76 @@ import { React, useState } from "react";
 import Navbar from "../navbar/Navbar";
 import Notes from "../notes/Notes";
 import moment from "moment";
+
 import "./input.css";
 
+
 export default function Input() {
-  var [toDoList, settoDoList] = useState([
-    { inputText: "get groceries", complete: false },
+  var [items, setItems] = useState([
+    { inputData: "get groceries", complete: false },
   ]);
-  var [inputText, setInputText] = useState("");
+  var [inputData, setInputData] = useState("");
+  var[toggleSubmit,setToggleSubmit]= useState(true);
+  const [isEditItem, setIsEditItem]= useState(null);
+
 
   //adding the task
   function handleSubmit(e) {
-    e.preventDefault();
-    settoDoList((prev) => [...prev, { inputText, complete: false }]);
-    setInputText("");
+   
+    if(!inputData){
+      alert("please fill data");
+    }else if(inputData && !toggleSubmit){
+      setItems(
+        items.map((elem)=>{
+          if(elem.id === isEditItem){
+            return {...elem,name:inputData}
+          }
+          return elem;
+        })
+      )
+        setToggleSubmit(false);
+        setInputData("")
+        setIsEditItem(null);
+    }else{
+      e.preventDefault();
+    setItems((prev) => [...prev, { inputData, complete: false }]);
+    setInputData("");
+    }
+
   }
-//complete todolist
+//complete items
   function completeToDo(index, complete) {
-    const todos = [...toDoList];
+    const todos = [...items];
     todos[index].complete = !complete;
-    settoDoList(todos);
+    setItems(todos);
   }
+//edit item
+const editItem=(index)=>{
+  let newEditFunction = items.find((elem)=>{
+    return elem.index === index;
+  });
+  console.log(newEditFunction);
+
+  //after clicking submit on edit button, these state changes
+  setToggleSubmit(false);
+  setInputData(newEditFunction.name);
+  setIsEditItem(index);
+}
+
   // delete a single item 
-  const deleteItems = (index) => {
-    settoDoList((oldItems) => {
-      return oldItems.filter((arrElem, id) => {
+  const deleteitems = (index) => {
+    setItems((olditems) => {
+      return olditems.filter((arrElem, id) => {
         return id !== index;
       });
     });
+    console.log(deleteitems);
   };
+
+  //removeall
+  const removeAll = () =>{
+    setItems([]);
+  }
 
   return (
     <div className="body-wrapper">
@@ -63,35 +105,39 @@ export default function Input() {
               type="text"
               name="todo-task"
               placeholder="Enter a task..."
-              value={inputText}
+              value={inputData}
               id="todo-task"
               className="todo-task"
               onChange={(e) => {
-                setInputText(e.target.value);
+                setInputData(e.target.value);
               }}
               required
             />
-            <input type="submit" className="btn-add-task" value="Add Task" />
-            {/* <input type="submit" className="btn-edit-task" value="Edit Task" /> */}
-            {/* <input
+            {
+              toggleSubmit ?  <input type="submit" className="btn-add-task" value="Add Task" /> :  <input type="submit" className="btn-edit-task" value="Edit Task" />
+            }
+           
+           
+            <input 
               type="reset"
               className="btn-clear-tasks"
               value="Clear Tasks"
-            
-            /> */}
+            onClick={removeAll}
+            />
           </form>
           <hr class ="todo-item-hr"/>
           {/* <p className="todo-empty-message">No active Tasks!</p> */}
           <article className="list-container">
             <ul className="todo-list">
-              {toDoList.map((val, index) => (
+              {items.map((val, index) => (
                 <Notes
                   key={index}
-                  inputText={val.inputText}
+                  inputData={val.inputData}
                   index={index}
                   complete={val.complete}
                   completeToDo={completeToDo}
-                  onSelect={deleteItems}
+                  onSelect={deleteitems}
+                  onEdit={editItem}
                 />
               ))}
             </ul>

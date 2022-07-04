@@ -1,6 +1,8 @@
 import React from "react";
+import {TiTickOutline} from "react-icons/ti"
+
 import "./notes.css";
-function Notes({ inputText, index, completeToDo, complete, onSelect }) {
+function Notes({ inputData, index, completeToDo, complete, onSelect, onEdit }) {
   return (
     <div className="notes-container">
       <i
@@ -9,7 +11,8 @@ function Notes({ inputText, index, completeToDo, complete, onSelect }) {
           completeToDo(index, complete);
         }}
       >
-        click
+        <TiTickOutline
+        />
       </i>
       <h3
         className="notes-heading"
@@ -18,20 +21,35 @@ function Notes({ inputText, index, completeToDo, complete, onSelect }) {
           display: "inline",
         }}
       >
-        {inputText}
+        {inputData}
       </h3>{" "}
+      
       <i
         style={{
           display: "inline",
           cursor: "pointer",
           float: "right",
 
-        }}
+          }}
         onClick={() => {
           onSelect(index);
         }}
+      
       >
         delete
+      </i> 
+      <i
+        style={{
+          display: "inline",
+          cursor: "pointer",
+          float: "right",
+          marginRight:'20px'
+        }}
+        onClick={() => {
+          onEdit(index);
+        }}
+      >
+        Edit
       </i> 
       <hr className="todo-item-hr"/>
     </div>

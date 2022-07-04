@@ -152,6 +152,8 @@ body.light-theme #todo-form > #todo-task {
 
 form.state-new-task > input[type="submit"].btn-add-task {
   display: inline-block;
+}form.state-new-task > input[type="submit"].btn-edit-task {
+  display: inline-block;
 }
 
 .todo-task {
@@ -162,7 +164,7 @@ form.state-new-task > input[type="submit"].btn-add-task {
   margin: 0 0.25rem 0.25rem 0;
 }
 
-.btn-add-task {
+.btn-add-task,.btn-edit-task,.btn-clear-tasks {
   padding: 0.5rem;
   font-weight: bold;
   height: 2rem;
@@ -176,6 +178,10 @@ form.state-new-task > input[type="submit"].btn-add-task {
   background-color: var(--light-theme-primary-color);
   color: var(--light-theme-todo-list-background)
 }
+.btn-clear-tasks{
+  background-color: var(--light-theme-secondary-color);
+  color:var(--light-theme-background-color)
+}
 
 /* .btn-clear-tasks{
   background-color: var(--light-theme-secondary-color);
@@ -183,7 +189,7 @@ form.state-new-task > input[type="submit"].btn-add-task {
 } */
 
 .btn-add-task,
-.btn-edit-task {
+.btn-edit-task,.btn-clear-tasks {
   border: none;
   margin-right: 0.15rem;
 }
